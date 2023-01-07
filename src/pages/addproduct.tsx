@@ -6,25 +6,31 @@ import Input from '../components/form-elements/input'
 import Button from '../components/form-elements/button'
 import FileUpload from '../components/form-elements/file-upload'
 import Header from '../components/form-components/Header'
+import { usePrepareContractWrite, useContractWrite,useWaitForTransaction } from 'wagmi'
+import ABI from '../Contracts/logchain_ABI.json'
+import { Filelike, Web3Storage } from "web3.storage";
+
+
 
 const Addproduct: NextPage = () => {
-  const [data, setData] = useState({})
   const [imageUrl, setImageUrl] = useState('')
-
-  const handleData = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value })
-  }
-  
-  const handleImage = (e: any) => {
-    const image = URL.createObjectURL(e.target.files[0]);
-    setImageUrl(image)
-    setData({ ...data, [e.target.name]: e.target.value })
-  }
-
-  const handleSubmit = () => {
-    // Submission logics
-  }
-
+  const [image, setImage] = useState('')
+  const [id, setproductID] = useState(0);
+  const [name, setName] = useState(''); 
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+ 
+  const { config } = usePrepareContractWrite({
+    address: '0xbFfdfEC484fBC3975135684B02dB96eB70535ec1',
+    abi: ABI,
+    functionName: 'addProduct',
+    args: [id, name, description, location, imageUrl],
+  })
+  const { data, write } = useContractWrite(config)
+ 
+  const { isLoading, isSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  })
   return (
     <>
       <Head>
@@ -50,21 +56,21 @@ const Addproduct: NextPage = () => {
                             label="Product ID"
                             type="text"
                             placeholder="Product ID"
-                            onChange={handleData}
+                            onChange={(e) => setproductID(parseInt(e.target.value))}
                           />
                           <Input
                             id="productname"
                             name="productname"
                             label="Product Name"
                             placeholder="Product Name"
-                            onChange={handleData}
+                            onChange={(e) => setName(e.target.value)}
                           />
                           <Input
                             id="description"
                             name="description"
                             label="Description"
                             placeholder="Description"
-                            onChange={handleData}
+                            onChange={(e) => setDescription(e.target.value)}
                           />
                         </div>
                         <div className="w-full md:w-1/2 space-y-6">
@@ -73,17 +79,32 @@ const Addproduct: NextPage = () => {
                             name="Location"
                             label="Location"
                             placeholder="Location"
-                            onChange={handleData}
+                            onChange={(e) => setLocation(e.target.value)}
                           />
                           <div className="flex space-x-5">
                             <FileUpload
                               id="productimage"
                               name="productimage"
                               label="Product Image"
-                              onChange={handleImage}
+                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                              const image = URL.createObjectURL(e.target.files[0]);
+                              setImage(image)
+                                const files = (e.target as HTMLInputElement).files!;
+                                const client = new Web3Storage({
+                                  token:
+                                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDkxZTRjOEMwNTJiMzkzNEQ3Nzc5NWM3QWQ3MkQ0MTFhMGQyMWUxODIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzE2ODYwNTU1NjIsIm5hbWUiOiJNYXRpYy1Qcm9maWxlIn0.zDWjIoqZUCnPXtvWXjm_ZbvPN2ZZHTfcK7JHdM2S7hk",
+                                });
+                                client.put(files).then((cid) => {
+                                  console.log(cid);
+                              
+                                  setImageUrl(
+                                    `https://${cid}.ipfs.w3s.link/${files[0].name}`
+                                  )
+    
+                                })}}
                             />
                             <Image 
-                              src={imageUrl !== '' ? imageUrl : '/Preview-icon.webp'} 
+                              src={image !== '' ? image : '/Preview-icon.webp'} 
                               alt="preview" 
                               width={200} 
                               height={200} />
@@ -91,10 +112,9 @@ const Addproduct: NextPage = () => {
                         </div>
                       </div>
                       <div className="max-w-[200px]">
-                        <Button
-                          label="Add Product"
-                          onClick={handleSubmit}
-                        />
+                      <Button label="Add Product" onClick={() => {
+                            write?.()
+                          }} />
                       </div>
                     </form>
                   </div>

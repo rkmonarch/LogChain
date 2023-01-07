@@ -6,24 +6,36 @@ import Input from '../components/form-elements/input'
 import Select from '../components/form-elements/select'
 import Button from '../components/form-elements/button'
 import Header from '../components/form-components/Header'
+import ABI from '../Contracts/logchain_ABI.json'
+import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi'
+
 
 const Register: NextPage = () => {
-  const [data, setData] = useState({});
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState(0);
 
-  const handleData = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value })
-  }
 
   const handleSubmit = () => {
     // Submission logics
   }
 
   const roles = [
-    { name: 'Retailer', value: 'retailer' },
-    { name: 'Distributor', value: 'distributor' },
     { name: 'Manufacturer', value: 'manufacturer' },
+    { name: 'Distributor', value: 'distributor' },
+    { name: 'Retailer', value: 'retailer' },
   ]
-  
+  const { config } = usePrepareContractWrite({
+    address: '0xbFfdfEC484fBC3975135684B02dB96eB70535ec1',
+    abi: ABI,
+    functionName: 'addUser',
+    args: [name, email, role],
+  })
+  const { data, write } = useContractWrite(config)
+
+  const { isLoading, isSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  })
   return (
     <>
       <Head>
@@ -46,7 +58,7 @@ const Register: NextPage = () => {
                         name="name"
                         label="Name"
                         placeholder="Name"
-                        onChange={handleData}
+                        onChange={(e) => setName(e.target.value)}
                       />
                       <Input
                         id="email"
@@ -54,7 +66,7 @@ const Register: NextPage = () => {
                         label="Email"
                         placeholder="Email"
                         type="email"
-                        onChange={handleData}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                       <Select
                         id="roles"
@@ -62,9 +74,11 @@ const Register: NextPage = () => {
                         label="Roles"
                         placeholder="Select role"
                         options={roles}
-                        onChange={handleData}
+                        onChange={(event) => { setRole(event.target.selectedIndex) }}
                       />
-                      <Button label="Connect Wallet" onClick={handleSubmit} />
+                      <Button label="Register" onClick={() => {
+                            write?.()
+                          }} />
                     </form>
                   </div>
                 </div>
