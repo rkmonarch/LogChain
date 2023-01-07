@@ -11,7 +11,7 @@ import { ConnectKitProvider } from "connectkit";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={client}>
-      <ConnectKitProvider>
+      <ConnectKitProvider theme="retro">
         <ThemeProvider attribute="class">
           <Header />
           <div className="min-h-[calc(100vh-68px)] pt-16 px-2 sm:px-4">
