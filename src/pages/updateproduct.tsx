@@ -5,8 +5,9 @@ import Input from '../components/form-elements/input'
 import Button from '../components/form-elements/button'
 import Header from '../components/form-components/Header'
 import ProductDetail from '../components/product-detail'
-import { useContractRead } from 'wagmi'
+import { useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi'
 import contractABI from '../Contracts/logchain_ABI.json'
+import ABI from '../Contracts/logchain_ABI.json'
 
 interface ProductDetails {
   name: string;
@@ -18,10 +19,13 @@ interface ProductDetails {
 
 const Updateproduct: NextPage = () => {
   const [productData, setProductData] = useState({});
+  const [productID,setProductID] = useState(0);
+  const [productLocation,setProuctLocation] = useState('');
 
   const handleData = (e: any) => {
     setProductData({ ...productData, [e.target.name]: e.target.value })
-  }
+    setProductID(parseInt(e.target.value));
+    }
 
   const { data, isError, isLoading } = useContractRead({
     address: '0x4e90677555F6Ef8136075ec5A00230Dd41F5A2e8',
@@ -29,17 +33,31 @@ const Updateproduct: NextPage = () => {
     functionName: 'getProduct',
     args: [parseInt((productData as any).productid)]
   })
+  const { config } = usePrepareContractWrite({
+    address: '0x4e90677555F6Ef8136075ec5A00230Dd41F5A2e8',
+    abi: ABI,
+    functionName: 'addLocationStatus',
+    args: [productID, productLocation],
+  })
+  const { updateData, write } = useContractWrite(config)
 
+  const { isLoadingUpdate, isSuccess } = useWaitForTransaction({
+    hash: updateData?.hash,
+  })
   const handleSubmit = () => {
     console.log((productData as any).Location);
   }
 
   useEffect(() => {
-    if (data as ProductDetails && !isLoading) {      
+    if (data as ProductDetails && !isLoading) {  
+      console.log(data);
+          
       const { name, description, imageURL, locationStatuses, timestamp } = data as ProductDetails;
       setProductData({ ...productData, name, description, imageURL, locationStatuses, timestamp })
     }
   }, [data])
+
+ 
 
   return (
     <>
@@ -72,11 +90,13 @@ const Updateproduct: NextPage = () => {
                           name="Location"
                           label="Location"
                           placeholder="Location"
-                          onChange={handleData}
+                          onChange={(e) => setProuctLocation(e.target.value)}
                         />
                         <Button
                           label="Update Product"
-                          onClick={handleSubmit}
+                          onClick={() => {
+                            write?.()
+                          }}
                         />
                       </form>
                     </div>

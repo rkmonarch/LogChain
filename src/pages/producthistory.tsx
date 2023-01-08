@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import Input from '../components/form-elements/input'
@@ -6,13 +6,22 @@ import Button from '../components/form-elements/button'
 import Header from '../components/form-components/Header'
 import Timeline from '../components/timeline'
 import ProductDetail from '../components/product-detail'
+import contractABI from '../Contracts/logchain_ABI.json'
+import { useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi'
 
 const Producthistory: NextPage = () => {
-  const [data, setData] = useState({});
+  const [productData, setProductData] = useState({});
 
   const handleData = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value })
+    setProductData({ ...productData, [e.target.name]: e.target.value })
   }
+
+  const { data, isError, isLoading } = useContractRead({
+    address: '0x4e90677555F6Ef8136075ec5A00230Dd41F5A2e8',
+    abi: contractABI,
+    functionName: 'getProduct',
+    args: [parseInt((productData as any).productid)]
+  })
 
   const handleSubmit = () => {
     // Submission logics
@@ -24,6 +33,32 @@ const Producthistory: NextPage = () => {
     { title: 'Sample Title2', subtitle:"2023", des:"This is a des" },
     { title: 'Sample Title3', subtitle:"2023", des:"This is a des" }
   ]
+
+  interface ProductDetails {
+    name: string;
+    description: string;
+    imageURL: string;
+    locationStatuses: string[];
+    timestamp: number;
+  }
+  useEffect(() => {
+    if (data as ProductDetails && !isLoading) {  
+      console.log(data);
+          
+      const { name, description, imageURL, locationStatuses, timestamp } = data as ProductDetails;
+      setProductData({ ...productData, name, description, imageURL, locationStatuses, timestamp })
+    }
+  }, [data])
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
 
   return (
     <>
