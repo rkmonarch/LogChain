@@ -15,11 +15,6 @@ const Register: NextPage = () => {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState(0);
 
-
-  const handleSubmit = () => {
-    // Submission logics
-  }
-
   const roles = [
     { name: 'Manufacturer', value: 'manufacturer' },
     { name: 'Distributor', value: 'distributor' },
@@ -74,7 +69,7 @@ const Register: NextPage = () => {
                         label="Roles"
                         placeholder="Select role"
                         options={roles}
-                        onChange={(event) => { setRole(event.target.selectedIndex) }}
+                        onChange={(event) => { setRole(event.target.selectedIndex - 1) }}
                       />
                       <Button label="Register" onClick={() => {
                             write?.()
