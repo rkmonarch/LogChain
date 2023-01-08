@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import Head from 'next/head'
@@ -8,12 +8,15 @@ import Button from '../components/form-elements/button'
 import Header from '../components/form-components/Header'
 import ABI from '../Contracts/logchain_ABI.json'
 import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi'
+import { useToast } from '@chakra-ui/react'
 
 
 const Register: NextPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState(0);
+
+  const toast = useToast()
 
   const roles = [
     { name: 'Manufacturer', value: 'manufacturer' },
@@ -31,6 +34,19 @@ const Register: NextPage = () => {
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   })
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast({
+        title: "User Registered",
+        description: "User has been registered successfully",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      })
+    }
+  }, [isSuccess])
+
   return (
     <>
       <Head>

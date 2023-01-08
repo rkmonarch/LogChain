@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Input from '../components/form-elements/input'
@@ -9,6 +9,7 @@ import Header from '../components/form-components/Header'
 import { usePrepareContractWrite, useContractWrite,useWaitForTransaction } from 'wagmi'
 import ABI from '../Contracts/logchain_ABI.json'
 import { Filelike, Web3Storage } from "web3.storage";
+import { useToast } from '@chakra-ui/react'
 
 const Addproduct: NextPage = () => {
   const [imageUrl, setImageUrl] = useState('')
@@ -18,6 +19,8 @@ const Addproduct: NextPage = () => {
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
  
+  const toast = useToast()
+
   const { config } = usePrepareContractWrite({
     address: '0x4e90677555F6Ef8136075ec5A00230Dd41F5A2e8',
     abi: ABI,
@@ -29,6 +32,19 @@ const Addproduct: NextPage = () => {
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   })
+  
+  useEffect(() => {
+    if (isSuccess) {
+      toast({
+        title: "Product Added",
+        description: "Product has been added successfully",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      })
+    }
+  }, [isSuccess])
+
   return (
     <>
       <Head>

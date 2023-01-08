@@ -8,6 +8,7 @@ import ProductDetail from '../components/product-detail'
 import { useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi'
 import contractABI from '../Contracts/logchain_ABI.json'
 import ABI from '../Contracts/logchain_ABI.json'
+import { useToast } from '@chakra-ui/react'
 
 interface ProductDetails {
   name: string;
@@ -21,6 +22,8 @@ const Updateproduct: NextPage = () => {
   const [productData, setProductData] = useState({});
   const [productID,setProductID] = useState(0);
   const [productLocation,setProuctLocation] = useState('');
+
+  const toast = useToast()
 
   const handleData = (e: any) => {
     setProductData({ ...productData, [e.target.name]: e.target.value })
@@ -44,7 +47,7 @@ const Updateproduct: NextPage = () => {
   const { isLoading: isLoadingUpdate, isSuccess } = useWaitForTransaction({
     hash: updateData?.hash,
   })
-  
+
   const handleSubmit = () => {
     console.log((productData as any).Location);
   }
@@ -58,7 +61,17 @@ const Updateproduct: NextPage = () => {
     }
   }, [data])
 
- 
+  useEffect(() => {
+    if (isSuccess) {
+      toast({
+        title: 'Location Updated',
+        description: 'Product location updated successfully',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
+    }
+  }, [isSuccess])
 
   return (
     <>
