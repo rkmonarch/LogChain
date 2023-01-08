@@ -10,8 +10,6 @@ import { usePrepareContractWrite, useContractWrite,useWaitForTransaction } from 
 import ABI from '../Contracts/logchain_ABI.json'
 import { Filelike, Web3Storage } from "web3.storage";
 
-
-
 const Addproduct: NextPage = () => {
   const [imageUrl, setImageUrl] = useState('')
   const [image, setImage] = useState('')

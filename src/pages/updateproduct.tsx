@@ -24,7 +24,7 @@ const Updateproduct: NextPage = () => {
 
   const handleData = (e: any) => {
     setProductData({ ...productData, [e.target.name]: e.target.value })
-    setProductID(parseInt(e.target.value));
+    setProductID(parseInt(e.target.value)); 
     }
 
   const { data, isError, isLoading } = useContractRead({
@@ -39,11 +39,12 @@ const Updateproduct: NextPage = () => {
     functionName: 'addLocationStatus',
     args: [productID, productLocation],
   })
-  const { updateData, write } = useContractWrite(config)
+  const { data: updateData, write } = useContractWrite(config)
 
-  const { isLoadingUpdate, isSuccess } = useWaitForTransaction({
+  const { isLoading: isLoadingUpdate, isSuccess } = useWaitForTransaction({
     hash: updateData?.hash,
   })
+  
   const handleSubmit = () => {
     console.log((productData as any).Location);
   }
