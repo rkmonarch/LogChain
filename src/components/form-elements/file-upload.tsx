@@ -20,13 +20,13 @@ const FileUpload = ({
   onChange,
 }: FileUploadProps) => {
   return (
-    <div>
+    <div className="flex flex-col">
       <FormLabel
         htmlFor={id}
         className="text-gray-700 dark:text-white">
         {label}
       </FormLabel>
-      <Button leftIcon={<Icon as={FiFile} />}>
+      <Button leftIcon={<Icon as={FiFile} />} className="max-w-[300px] text-[#008dff] border-2 border-[#008dff] mb-5 md:mb-0">
         Upload
         <input
           id={id}

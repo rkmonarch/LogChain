@@ -10,7 +10,7 @@ const TimelineItem = ({title, subtitle, des}: TimelineProps) => {
   return (
     <li>
       <div className="right_content">
-        <h2 className="text-[#D27D2D]">{title}</h2>
+        <h2 className="text-[#008dff]">{title}</h2>
         <p className="text-gray-700 dark:text-white">{des}</p>
       </div>
       <div className="left_content">

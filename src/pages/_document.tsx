@@ -6,7 +6,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body className="bg-orange-100 dark:bg-gray-800">
+        <body className="bg-[url('../assets/images/bg.jpeg')] bg-no-repeat bg-cover bg-center bg-fixed dark:bg-[url('../assets/images/dark-bg.png')]">
           <Main />
           <NextScript />
         </body>
