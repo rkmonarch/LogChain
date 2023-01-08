@@ -1,21 +1,45 @@
 import { NextPage } from 'next'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Input from '../components/form-elements/input'
 import Button from '../components/form-elements/button'
 import Header from '../components/form-components/Header'
 import ProductDetail from '../components/product-detail'
+import { useContractRead } from 'wagmi'
+import contractABI from '../Contracts/logchain_ABI.json'
+
+interface ProductDetails {
+  name: string;
+  description: string;
+  imageURL: string;
+  locationStatuses: string[];
+  timestamp: number;
+}
 
 const Updateproduct: NextPage = () => {
-  const [data, setData] = useState({});
+  const [productData, setProductData] = useState({});
 
   const handleData = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value })
+    setProductData({ ...productData, [e.target.name]: e.target.value })
   }
 
+  const { data, isError, isLoading } = useContractRead({
+    address: '0x4e90677555F6Ef8136075ec5A00230Dd41F5A2e8',
+    abi: contractABI,
+    functionName: 'getProduct',
+    args: [parseInt((productData as any).productid)]
+  })
+
   const handleSubmit = () => {
-    // Submission logics
+    console.log((productData as any).Location);
   }
+
+  useEffect(() => {
+    if (data as ProductDetails && !isLoading) {      
+      const { name, description, imageURL, locationStatuses, timestamp } = data as ProductDetails;
+      setProductData({ ...productData, name, description, imageURL, locationStatuses, timestamp })
+    }
+  }, [data])
 
   return (
     <>
@@ -65,10 +89,9 @@ const Updateproduct: NextPage = () => {
                 <div className="relative w-full h-full md:h-auto">
                   <div className="relative rounded-lg shadow-lg backdrop-blur-lg bg-white/80 dark:bg-gray-700/60">
                     <div className="px-6 py-6 lg:px-8">
-                    <p className="text-xl font-medium title-font mb-4 text-[#008dff]">Product Details</p>
+                    <p className="text-xl font-medium title-font mb-4 text-[#D27D2D]">{(productData as any).name}</p>
                     <div className="p-2 flex flex-col">
-                      <ProductDetail label="Product Id" value="sdfh2516q5dvvvvvqxv3x35" />
-                      <ProductDetail label="Product Image" value="/banner.png" type="image" />
+                      <ProductDetail label="" value={(productData as any).imageURL} type="image" />
                     </div>
                     </div>
                   </div>

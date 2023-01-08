@@ -21,7 +21,7 @@ const Register: NextPage = () => {
     { name: 'Retailer', value: 'retailer' },
   ]
   const { config } = usePrepareContractWrite({
-    address: '0xbFfdfEC484fBC3975135684B02dB96eB70535ec1',
+    address: '0x4e90677555F6Ef8136075ec5A00230Dd41F5A2e8',
     abi: ABI,
     functionName: 'addUser',
     args: [name, email, role],

@@ -21,7 +21,7 @@ const Addproduct: NextPage = () => {
   const [location, setLocation] = useState('');
  
   const { config } = usePrepareContractWrite({
-    address: '0xbFfdfEC484fBC3975135684B02dB96eB70535ec1',
+    address: '0x4e90677555F6Ef8136075ec5A00230Dd41F5A2e8',
     abi: ABI,
     functionName: 'addProduct',
     args: [id, name, description, location, imageUrl],
@@ -86,7 +86,7 @@ const Addproduct: NextPage = () => {
                               id="productimage"
                               name="productimage"
                               label="Product Image"
-                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                             onChange={(e: any) => {
                               const image = URL.createObjectURL(e.target.files[0]);
                               setImage(image)
                                 const files = (e.target as HTMLInputElement).files!;

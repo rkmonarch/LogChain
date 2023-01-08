@@ -10,12 +10,13 @@ const ProductDetail = ({
   value: string;
   type?: string;
 }) => {
+  if (value === '' || value === undefined) value = '/banner.png'
   return (
     <div className="flex flex-row">
       {type === "image" ? (
         <>
-          <p className="text-md text-left font-bold title-font mb-4 text-gray-800 dark:text-white mr-2">{`${label}:`}</p>
-          <Image src={value} width="400" height="400" alt="label" />
+          <p className="text-md text-left font-bold title-font mb-4 text-gray-800 dark:text-white mr-2">{`${label}`}</p>
+          <Image loader={() => value} src={value} width="400" height="400" alt="label" />
         </>
       ) : (
         <>
