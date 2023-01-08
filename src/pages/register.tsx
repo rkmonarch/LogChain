@@ -50,7 +50,7 @@ const Register: NextPage = () => {
           <div className="flex flex-col md:flex-row text-center w-full">
             <div className="w-full md:w-1/2 mb-10 md:mb-0 md:p-4 overflow-x-hidden overflow-y-auto md:inset-0 justify-center flex md:h-full">
               <div className="relative w-full h-full md:h-auto">
-                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative rounded-lg shadow-lg backdrop-blur-lg bg-white/80 dark:bg-gray-700/60">
                   <div className="px-6 py-6 lg:px-8">
                     <form className="space-y-6">
                       <Input
@@ -85,7 +85,7 @@ const Register: NextPage = () => {
               </div>
             </div>
             <div>
-              <Image src="/register.svg" width="500" height="500" alt="Register" />
+              <Image src="/register.png" className="rounded-full" width="500" height="300" alt="Register" />
             </div>
           </div>
         </div>

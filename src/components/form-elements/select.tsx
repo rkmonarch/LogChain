@@ -35,11 +35,11 @@ const Select = ({
         variant="outline"
         id={id}
         name={name}
-        placeholder={placeholder}
         onChange={onChange}
         className="mt-0 text-gray-700 dark:text-white" 
-        focusBorderColor="#F28C28"
+        focusBorderColor="#008dff"
       >
+        <option selected hidden disabled value="">{placeholder}</option>
         {
           options?.map(({name, value}) => 
             <option key={value} className="text-gray-700 dark:text-white" value={value}>{name}</option>

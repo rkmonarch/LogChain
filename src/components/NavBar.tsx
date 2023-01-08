@@ -26,10 +26,10 @@ const Header = () => {
 
   return (
     <>
-      <nav className="fixed z-10 w-full mx-auto bg-orange-100 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800 shadow">
+      <nav className="fixed z-10 w-full mx-auto bg-blue-100 opacity-90 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800 drop-shadow-lg dark:drop-shadow-[0_20px_35px_rgba(255,255,255,0.25)]">
         <div className="max-w-[1080px] container flex flex-wrap justify-between items-center mx-auto">
           <Link href="/" className="flex items-center flex-1">
-            <span className="flex flex-row items-center self-center text-xl font-semibold whitespace-nowrap text-[#D27D2D] hover:text-[#F28C28]">
+            <span className="flex flex-row items-center self-center text-xl font-semibold whitespace-nowrap text-[#008dff] hover:text-[#00bdff]">
               <Image src="/logchain.png" width="50" height="50" alt="LogChain" />
               LogChain
             </span>
@@ -39,7 +39,7 @@ const Header = () => {
             <button
               data-collapse-toggle="mobile-menu-4"
               type="button"
-              className="inline-flex items-center py-2 px-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="ml-2 md:ml-0 inline-flex items-center py-2 px-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               onClick={() => setIsOpenMenu(!isOpenMenu)}
             >
               <span className="sr-only">Open main menu</span>
@@ -57,11 +57,11 @@ const Header = () => {
                 <Link
                   href="/"
                   className={`${
-                    pathname === "/" ? "text-[#D27D2D]" : "text-gray-700"
-                  } block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-[#D27D2D] md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                    pathname === "/" ? "text-[#008dff] dark:text-white" : "text-gray-700"
+                  } block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-[#00bdff] md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
                   aria-current="page"
                 >
-                  Home
+                  <b>Home</b>
                 </Link>
               </li>
               <li>
@@ -69,12 +69,12 @@ const Header = () => {
                   href="/register"
                   className={`${
                     pathname === "/register"
-                      ? "text-[#D27D2D]"
+                      ? "text-[#008dff] dark:text-white"
                       : "text-gray-700"
-                  } block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-[#D27D2D] md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                  } block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-[#00bdff] md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
                   aria-current="page"
                 >
-                  Register
+                  <b>Register</b>
                 </Link>
               </li>
               <li>
@@ -82,12 +82,12 @@ const Header = () => {
                   href="/addproduct"
                   className={`${
                     pathname === "/addproduct"
-                      ? "text-[#D27D2D]"
+                      ? "text-[#008dff] dark:text-white"
                       : "text-gray-700"
-                  } block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-[#D27D2D] md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                  } block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-[#00bdff] md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
                   aria-current="page"
                 >
-                  Add Product
+                  <b>Add Product</b>
                 </Link>
               </li>
               <li>
@@ -95,12 +95,12 @@ const Header = () => {
                   href="/updateproduct"
                   className={`${
                     pathname === "/updateproduct"
-                      ? "text-[#D27D2D]"
+                      ? "text-[#008dff] dark:text-white"
                       : "text-gray-700"
-                  } block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-[#D27D2D] md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                  } block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-[#00bdff] md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
                   aria-current="page"
                 >
-                  Update Status
+                  <b>Update Status</b>
                 </Link>
               </li>
               <li>
@@ -108,30 +108,30 @@ const Header = () => {
                   href="/producthistory"
                   className={`${
                     pathname === "/producthistory"
-                      ? "text-[#D27D2D]"
+                      ? "text-[#008dff] dark:text-white"
                       : "text-gray-700"
-                  } block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-[#D27D2D] md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                  } block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-[#00bdff] md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
                   aria-current="page"
                 >
-                  Product History
+                  <b>Product History</b>
                 </Link>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-      <div className="bg-orange-200 w-8 h-8 fixed bottom-[15px] right-[50px] flex justify-center items-center rounded-full">
-        {theme === "light" ? (
-          <BiSun
+      <div className="z-10 bg-[#008dff] w-8 h-8 fixed bottom-[18px] right-[50px] flex justify-center items-center rounded-full">
+        {theme === "dark" ? (
+          <BiMoon
             size="25"
             onClick={switchTheme}
-            className="text-gray-500 hover:cursor-pointer"
+            className="text-white hover:cursor-pointer"
           />
         ) : (
-          <BiMoon
+          <BiSun
             size="20"
             onClick={switchTheme}
-            className="text-gray-500 hover:cursor-pointer"
+            className="text-white hover:cursor-pointer"
           />
         )}
       </div>

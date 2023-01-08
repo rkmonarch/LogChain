@@ -11,7 +11,7 @@
   left:30%;
   width:2px;
   top:-20px;
-  background:#D27D2D;
+  background:#008dff;
   z-index:1;
 }
 .timeline{
@@ -52,9 +52,9 @@
   position:absolute;
   width:10px;
   height:10px;
-  background:#D27D2D;
+  background:#008dff;
   border-radius:50%;
-  box-shadow: 0 0 0 3px #D27D2D;
+  box-shadow: 0 0 0 3px #008dff;
   right:-6px;
   top:24px;
   z-index:1;
@@ -68,7 +68,7 @@
   padding:8px 16px;
 
   color:#fff;
-  box-shadow:0 0 0 3px #D27D2D;
+  box-shadow:0 0 0 3px #008dff;
   border-radius:18px;
   
 }

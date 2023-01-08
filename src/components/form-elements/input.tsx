@@ -31,7 +31,7 @@ const Input = ({
         onChange={onChange}
         variant="outline" 
         className="mt-0 text-gray-700 dark:text-white" 
-        focusBorderColor="#F28C28" 
+        focusBorderColor="#008dff" 
         placeholder={placeholder}
         type={type}
       />
