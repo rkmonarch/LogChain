@@ -6,15 +6,11 @@ interface TimelineProps {
   des:string
 }
 
-const TimelineItem = ({title, subtitle, des}: TimelineProps) => {
+const TimelineItem = ({title}: TimelineProps) => {
   return (
     <li>
       <div className="right_content">
         <h2 className="text-[#008dff]">{title}</h2>
-        <p className="text-gray-700 dark:text-white">{des}</p>
-      </div>
-      <div className="left_content">
-        <h3 className="text-gray-700 dark:text-white">{subtitle}</h3>
       </div>
     </li>
   )

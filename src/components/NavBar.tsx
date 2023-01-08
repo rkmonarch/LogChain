@@ -29,7 +29,7 @@ const Header = () => {
       <nav className="fixed z-10 w-full mx-auto bg-blue-100 opacity-90 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800 drop-shadow-lg dark:drop-shadow-[0_20px_35px_rgba(255,255,255,0.25)]">
         <div className="max-w-[1080px] container flex flex-wrap justify-between items-center mx-auto">
           <Link href="/" className="flex items-center flex-1">
-            <span className="flex flex-row items-center self-center text-xl font-semibold whitespace-nowrap text-[#008dff] hover:text-[#00bdff]">
+            <span className="flex flex-row items-center self-center text-xl font-semibold whitespace-nowrap text-[#008dff] hover:text-[#008dff]">
               <Image src="/logchain.png" width="50" height="50" alt="LogChain" />
               LogChain
             </span>

@@ -9,8 +9,19 @@ import ProductDetail from '../components/product-detail'
 import contractABI from '../Contracts/logchain_ABI.json'
 import { useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi'
 
+interface ProductDetails {
+  name: string;
+  description: string;
+  imageURL: string;
+  locationStatuses: string[];
+  timestamp: number;
+}
+
 const Producthistory: NextPage = () => {
   const [productData, setProductData] = useState({});
+  const [productID,setProductID] = useState(0);
+  const [productLocation,setProuctLocation] = useState('');
+  const [productHistory, setProductHistory] = useState([{title: "Created Location"}]);
 
   const handleData = (e: any) => {
     setProductData({ ...productData, [e.target.name]: e.target.value })
@@ -23,17 +34,6 @@ const Producthistory: NextPage = () => {
     args: [parseInt((productData as any).productid)]
   })
 
-  const handleSubmit = () => {
-    // Submission logics
-  }
-
-  /* Temp Product History Timeline */
-  const productHistory = [
-    { title: 'Sample Title1', subtitle:"2023", des:"This is a des" },
-    { title: 'Sample Title2', subtitle:"2023", des:"This is a des" },
-    { title: 'Sample Title3', subtitle:"2023", des:"This is a des" }
-  ]
-
   interface ProductDetails {
     name: string;
     description: string;
@@ -41,24 +41,18 @@ const Producthistory: NextPage = () => {
     locationStatuses: string[];
     timestamp: number;
   }
+
   useEffect(() => {
     if (data as ProductDetails && !isLoading) {  
       console.log(data);
           
       const { name, description, imageURL, locationStatuses, timestamp } = data as ProductDetails;
+      setProductHistory(locationStatuses.map((location: string) => {
+        return {title: location}
+      }))
       setProductData({ ...productData, name, description, imageURL, locationStatuses, timestamp })
     }
   }, [data])
-
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      console.log(position.coords.latitude);
-      console.log(position.coords.longitude);
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
 
   return (
     <>
@@ -89,14 +83,12 @@ const Producthistory: NextPage = () => {
                           />
                           <Button
                             label="View History"
-                            onClick={handleSubmit}
                           />
                         </form>
-                        <div>
-                          <p className="text-xl font-medium title-font mb-4 text-[#008dff]">Product Details</p>
-                          <ProductDetail label="Product Id" value="sdfh2516q5dvvvvvqxv3x35" />
-                          <ProductDetail label="Product Image" value="/banner.png" type="image" />
-                        </div>
+                        <p className="text-xl font-medium title-font mb-4 text-[#D27D2D]">{(productData as any).name}</p>
+                    <div className="p-2 flex flex-col">
+                      <ProductDetail label="" value={(productData as any).imageURL} type="image" />
+                    </div>
                       </div>
                       <div className="w-full md:w-1/2 space-y-6">
                         <Timeline points={productHistory} />
